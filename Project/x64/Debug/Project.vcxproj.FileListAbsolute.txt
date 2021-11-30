@@ -1,1 +1,2 @@
 C:\Users\Galih\Documents\Semester 5\Grafkom\Project\x64\Debug\Project.exe
+D:\Grafikom\Project\x64\Debug\Project.exe
