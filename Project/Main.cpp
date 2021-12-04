@@ -1705,17 +1705,17 @@ GLuint pintuKaIndices[] =
 
 Vertex tv[] =
 {
-	Vertex{glm::vec3(9.8f, 0.5f, -22.0f), glm::vec3(0.15f, 0.1568f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f)},
+	Vertex{glm::vec3(9.8f, 0.5f, -22.0f), glm::vec3(0.05f, 0.0568f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f)},
 	Vertex{glm::vec3(9.5f, 5.0f, -22.0f), glm::vec3(0.15f, 0.1568f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f)},
 	Vertex{glm::vec3(9.5f, 5.0f,  -13.0f), glm::vec3(0.15f, 0.1568f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f)},
-	Vertex{glm::vec3(9.8f, 0.5f,  -13.0f), glm::vec3(0.15f, 0.1568f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f)},
+	Vertex{glm::vec3(9.8f, 0.5f,  -13.0f), glm::vec3(0.05f, 0.0568f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f)},
 
 	//depan
-	Vertex{glm::vec3(9.5f, 0.5f, -22.0f), glm::vec3(0.15f, 0.1568f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f)},
+	Vertex{glm::vec3(9.5f, 0.5f, -22.0f), glm::vec3(0.05f, 0.0568f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f)},
 	Vertex{glm::vec3(9.2f, 5.0f, -22.0f), glm::vec3(0.15f, 0.1568f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f)},
 	Vertex{glm::vec3(9.2f, 5.0f,  -13.0f), glm::vec3(0.15f, 0.1568f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f)},
-	Vertex{glm::vec3(9.5f, 0.5f,  -13.0f), glm::vec3(0.15f, 0.1568f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f)},
-
+	Vertex{glm::vec3(9.5f, 0.5f,  -13.0f), glm::vec3(0.05f, 0.0568f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f)},
+	
 	//layar
 	Vertex{glm::vec3(9.48f, 0.7f, -21.8f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)},
 	Vertex{glm::vec3(9.19f, 4.8f, -21.8f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)},
@@ -1751,8 +1751,6 @@ GLuint tvIndices[] =
 	1, 4, 0,
 	3, 7, 6,
 	3, 6, 2,
-	8, 9, 10,
-	8, 10, 11,
 	13, 12, 14,
 	13, 14, 15,
 	18, 17, 16,
@@ -1761,6 +1759,12 @@ GLuint tvIndices[] =
 	20, 16, 19,
 	21, 18, 16,
 	21, 16, 19
+};
+
+GLuint layar1Indices[] =
+{
+	0, 1, 2,
+	0, 2, 3
 };
 
 
@@ -2048,6 +2052,14 @@ int main()
 	// Crate light mesh
 	Mesh light(lightVerts, lightInd, tex);
 
+	Shader layarShader("base.vert", "basetex.frag");
+	// Store mesh data in vectors for the mesh
+	
+	std::vector <GLuint> layar1Ind(layar1Indices, layar1Indices + sizeof(layar1Indices) / sizeof(GLuint));
+	std::vector <Texture> layar1Tex(texture2, texture2 + sizeof(texture2) / sizeof(Texture));
+
+
+
 
 
 
@@ -2123,8 +2135,11 @@ int main()
 	float rotateJarumS = 0.0168f;
 	float kiriGeser = 0.0f;
 	float kananGeser = 0.0f;
-
+	float red = 0.0f;
+	float blue = 0.0f;
+	float green = 0.0f;
 	
+
 	
 	
 	
@@ -2138,8 +2153,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		
-		kipasShader.Activate();
-		
+				
 		// Handles camera inputs
 		camera.Inputs(window);
 		keluar(window);
@@ -2215,6 +2229,60 @@ int main()
 			prevTime = crntTime;
 		}
 
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+		{
+			red = 1.0f;
+			green = 0.0f;
+			blue = 0.0f;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+		{
+			red = 0.0f;
+			green = 1.0f;
+			blue = 0.0f;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
+		{
+			red = 0.0f;
+			green = 0.0f;
+			blue = 1.0f;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+		{
+			red = 0.0f;
+			green = 0.0f;
+			blue = 0.0f;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+		{
+			red = 1.0f;
+			green = 1.0f;
+			blue = 1.0f;
+		}
+
+
+		Vertex warna[] =
+		{
+			Vertex{glm::vec3(9.48f, 0.7f, -21.8f), glm::vec3(red, green, blue), glm::vec3(1.0f, 1.0f, 1.0f)},
+			Vertex{glm::vec3(9.19f, 4.8f, -21.8f), glm::vec3(red, green, blue), glm::vec3(1.0f, 1.0f, 1.0f)},
+			Vertex{glm::vec3(9.19f, 4.8f,  -13.2f), glm::vec3(red, green, blue), glm::vec3(1.0f, 1.0f, 1.0f)},
+			Vertex{glm::vec3(9.48f, 0.7f,  -13.2f), glm::vec3(red, green, blue), glm::vec3(1.0f, 1.0f, 1.0f)}
+		};
+		std::vector <Vertex> layar1Verts(warna, warna + sizeof(warna) / sizeof(Vertex));
+		Mesh layar(layar1Verts, layar1Ind, layar1Tex);
+
+		layarShader.Activate();
+		glUniformMatrix4fv(glGetUniformLocation(layarShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(objectModel));
+
+		layar.Draw(layarShader, camera);
+
+		
+
+		kipasShader.Activate();
 		glm::mat4 modelRotate = glm::mat4(1.0f);
 		modelRotate = glm::translate(modelRotate, glm::vec3(0.0f, 0.0f, -18.25f));
 		modelRotate = glm::rotate(modelRotate, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -2302,6 +2370,7 @@ int main()
 	jarumSShader.Delete();
 	pintuKiShader.Delete();
 	pintuKaShader.Delete();
+	layarShader.Delete();
 	//lightShader.Delete();
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
