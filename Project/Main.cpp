@@ -2229,39 +2229,42 @@ int main()
 			prevTime = crntTime;
 		}
 
-		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+		if (red == 0.0f && green == 0.0f && blue == 0.0f)
 		{
-			red = 1.0f;
-			green = 0.0f;
-			blue = 0.0f;
-		}
-
-		if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+			if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+			{
+				red = 1.0f;
+			}
+		}else if (red == 1.0f && green == 0.0f && blue == 0.0f)
 		{
-			red = 0.0f;
-			green = 1.0f;
-			blue = 0.0f;
-		}
-
-		if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
+			if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+			{
+				red = 0.0f;
+				green = 1.0f;
+			}
+		}else if (red == 0.0f && green == 1.0f && blue == 0.0f)
 		{
-			red = 0.0f;
-			green = 0.0f;
-			blue = 1.0f;
-		}
-
-		if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+			if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+			{
+				green = 0.0f;
+				blue = 1.0f;
+			}
+		}else if (red == 0.0f && green == 0.0f && blue == 1.0f)
 		{
-			red = 0.0f;
-			green = 0.0f;
-			blue = 0.0f;
-		}
-
-		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+			if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+			{
+				green = 1.0f;
+				blue = 1.0f;
+				red = 1.0f;
+			}
+		}else if (red == 1.0f && green == 1.0f && blue == 1.0f)
 		{
-			red = 1.0f;
-			green = 1.0f;
-			blue = 1.0f;
+			if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+			{
+				green = 0.0f;
+				blue = 0.0f;
+				red = 0.0f;
+			}
 		}
 
 
